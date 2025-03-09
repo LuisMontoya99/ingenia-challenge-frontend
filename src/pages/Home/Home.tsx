@@ -1,3 +1,4 @@
+import "./Home.css";
 import Button from "../../components/Button";
 
 const Home = () => {
@@ -31,7 +32,7 @@ const Home = () => {
 
         <div className="bg-white py-4 md:py-6">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-4 md:gap-12 text-sm md:text-base">
+            <div className="home-page-footer flex flex-row items-center justify-center gap-4 md:gap-12 text-sm md:text-base">
               <div className="text-gray-400 flex items-center gap-1">
                 <span>🚚</span> Envío Rápido
               </div>

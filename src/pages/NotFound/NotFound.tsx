@@ -14,7 +14,7 @@ const NotFound = () => {
 
         <Button
           to="/home"
-          className="text-base md:text-lg px-8 md:px-10 py-3 md:py-4"
+          className="text-sm md:text-base px-6 md:px-8 py-3 md:py-4"
         >
           Volver al Inicio
         </Button>
