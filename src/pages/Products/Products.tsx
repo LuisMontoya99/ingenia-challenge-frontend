@@ -3,6 +3,7 @@ import { fetchProducts } from "../../services/api";
 import ProductCard from "../../components/ProductCard";
 import { Product } from "../../types/Product";
 import { ArrowLeftIcon, ArrowRightIcon } from "@heroicons/react/24/outline";
+import Button from "../../components/Button";
 
 const Products = () => {
   const [currentPage, setCurrentPage] = useState(1);
@@ -21,14 +22,29 @@ const Products = () => {
     loadProducts();
   }, []);
 
+  useEffect(() => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+  }, [currentPage]);
+
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
   const currentProducts = products.slice(indexOfFirstItem, indexOfLastItem);
   const totalPages = Math.ceil(products.length / itemsPerPage);
 
-  const handlePrevious = () => setCurrentPage((prev) => Math.max(prev - 1, 1));
-  const handleNext = () =>
+  const handlePageChange = (page: number) => {
+    setCurrentPage(page);
+  };
+
+  const handlePrevious = () => {
+    setCurrentPage((prev) => Math.max(prev - 1, 1));
+  };
+
+  const handleNext = () => {
     setCurrentPage((prev) => Math.min(prev + 1, totalPages));
+  };
 
   return (
     <div className="min-h-screen bg-accentBg p-6 pt-24">
@@ -48,39 +64,39 @@ const Products = () => {
       </div>
 
       <div className="mt-12 flex flex-col sm:flex-row items-center justify-center gap-4">
-        <button
+        <Button
           onClick={handlePrevious}
           disabled={currentPage === 1}
-          className="px-6 py-2 bg-primary text-white rounded-full disabled:opacity-50 disabled:cursor-not-allowed hover:bg-secondary transition-all font-medium flex items-center gap-2"
+          className="!px-6 !py-2 !rounded-full flex items-center gap-2"
         >
           <ArrowLeftIcon className="w-5 h-5" />
           Anterior
-        </button>
+        </Button>
 
         <div className="flex items-center gap-1">
           {Array.from({ length: totalPages }, (_, i) => (
-            <button
+            <Button
               key={i + 1}
-              onClick={() => setCurrentPage(i + 1)}
-              className={`w-10 h-10 rounded-full flex items-center justify-center transition-all ${
+              onClick={() => handlePageChange(i + 1)}
+              className={`!w-10 !h-10 !p-0 !rounded-full ${
                 currentPage === i + 1
-                  ? "bg-primary text-white shadow-lg"
-                  : "bg-white text-text hover:bg-gray-50 border border-gray-200"
+                  ? "!bg-primary !text-white !shadow-lg"
+                  : "!bg-white !text-text hover:!bg-gray-50 !border !border-gray-200"
               }`}
             >
               {i + 1}
-            </button>
+            </Button>
           ))}
         </div>
 
-        <button
+        <Button
           onClick={handleNext}
           disabled={currentPage === totalPages}
-          className="px-6 py-2 bg-primary text-white rounded-full disabled:opacity-50 disabled:cursor-not-allowed hover:bg-secondary transition-all font-medium flex items-center gap-2"
+          className="!px-6 !py-2 !rounded-full flex items-center gap-2"
         >
           Siguiente
           <ArrowRightIcon className="w-5 h-5" />
-        </button>
+        </Button>
       </div>
     </div>
   );
