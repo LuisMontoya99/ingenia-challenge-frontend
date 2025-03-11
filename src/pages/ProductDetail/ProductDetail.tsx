@@ -46,11 +46,11 @@ const ProductDetail = () => {
       <div className="max-w-7xl mx-auto bg-white rounded-2xl shadow-lg p-6 md:p-8 lg:p-12">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 xl:gap-12">
           <div className="space-y-4">
-            <div className="bg-gray-100 rounded-xl overflow-hidden lg:max-h-none max-h-[300px]">
+            <div className="bg-gray-100 rounded-xl overflow-hidden max-h-[300px] lg:max-h-[500px]">
               <img
                 src={mainImage}
                 alt={product.title}
-                className="w-full h-auto max-h-[500px] object-contain mx-auto"
+                className="w-full h-auto max-h-[300px] lg:max-h-[500px] object-contain mx-auto"
               />
             </div>
 
@@ -69,7 +69,7 @@ const ProductDetail = () => {
                   <img
                     src={img}
                     alt={`Imagen ${index + 1} del producto ${product.title}`}
-                    className="w-full h-full object-cover"
+                    className="w-full h-full object-contain"
                     role="presentation"
                   />
                 </Button>

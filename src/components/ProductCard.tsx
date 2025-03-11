@@ -30,7 +30,7 @@ const ProductCard = ({ product }: ProductCardProps) => {
         <img
           src={product.thumbnail}
           alt={product.title}
-          className="w-full h-52 object-cover transition-transform duration-300 group-hover:scale-110"
+          className="w-full h-52 object-contain transition-transform duration-300 group-hover:scale-110"
         />
         <span className="absolute top-3 right-3 bg-primary/90 text-white px-3 py-1 rounded-full text-xs font-medium">
           {product.category}

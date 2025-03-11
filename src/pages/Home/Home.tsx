@@ -11,7 +11,7 @@ const Home = () => {
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
             <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold text-text mb-4 md:mb-6">
               Bienvenido a{" "}
-              <span className="text-primary inline-block"> Ingenia</span>
+              <span className="text-primary inline-block">Ingenia</span>
               <span className="text-secondary inline-block">Store</span>
             </h1>
 
