@@ -63,7 +63,7 @@ const ProductCard = ({ product }: ProductCardProps) => {
         <div className="mt-auto">
           <Button
             to={`/products/${product.id}`}
-            className="w-full !py-2.5 !px-4 !rounded-lg !text-base"
+            className="w-full !py-2.5 !px-4 !rounded-lg !text-base text-center"
           >
             Ver detalles
           </Button>

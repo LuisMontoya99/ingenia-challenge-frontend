@@ -46,39 +46,40 @@ const ProductDetail = () => {
       <div className="max-w-7xl mx-auto bg-white rounded-2xl shadow-lg p-6 md:p-8 lg:p-12">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 xl:gap-12">
           <div className="space-y-4">
-            <div className="aspect-square bg-gray-100 rounded-xl overflow-hidden">
+            <div className="bg-gray-100 rounded-xl overflow-hidden lg:max-h-none max-h-[300px]">
               <img
                 src={mainImage}
                 alt={product.title}
-                className="w-full h-full object-cover transition-all duration-300"
+                className="w-full h-auto max-h-[500px] object-contain mx-auto"
               />
             </div>
-            <div className="grid grid-cols-4 gap-3">
-              {product.images.map((img) => (
-                <button
+
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
+              {product.images.map((img, index) => (
+                <Button
                   key={img}
                   onClick={() => setMainImage(img)}
-                  className={`aspect-square rounded-lg overflow-hidden border-2 ${
-                    mainImage === img ? "border-primary" : "border-transparent"
+                  className={`aspect-square !p-0 !rounded-lg !border-2 !bg-transparent hover:!bg-transparent focus:!bg-transparent !shadow-none ${
+                    mainImage === img
+                      ? "!border-primary"
+                      : "!border-transparent"
                   }`}
-                  aria-label={`Ver imagen ${img + 1} de ${product.title}`}
+                  ariaLabel={`Ver imagen ${index + 1}`}
                 >
                   <img
                     src={img}
-                    alt={`Vista ${img + 1}`}
+                    alt={`Imagen ${index + 1} del producto ${product.title}`}
                     className="w-full h-full object-cover"
+                    role="presentation"
                   />
-                </button>
+                </Button>
               ))}
             </div>
           </div>
 
           <div className="space-y-6">
             <div>
-              <span className="text-sm text-primary font-medium bg-primary/10 px-3 py-1 rounded-full">
-                {product.category}
-              </span>
-              <h1 className="text-3xl font-bold text-text mt-4 mb-2">
+              <h1 className="sm:text-3xl text-xl font-bold text-text mt-4 mb-2">
                 {product.title}
               </h1>
               <div className="flex items-center gap-2 text-lg">
@@ -86,7 +87,7 @@ const ProductDetail = () => {
                   ${product.price.toFixed(2)}
                 </span>
                 {product.discountPercentage > 0 && (
-                  <span className="text-error line-through">
+                  <span className="text-muted line-through">
                     $
                     {(
                       product.price /
@@ -97,7 +98,7 @@ const ProductDetail = () => {
               </div>
             </div>
 
-            <div className="flex items-center gap-4">
+            <div className="flex items-center gap-4 flex-wrap">
               <div className="flex items-center gap-1">
                 {[...Array(5)].map((_, i) => (
                   <span
@@ -133,7 +134,7 @@ const ProductDetail = () => {
               </p>
             </div>
 
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid sm:grid-cols-2 grid-cols-1 gap-4">
               <div className="bg-gray-50 p-4 rounded-xl">
                 <h4 className="text-sm font-medium text-text/70 mb-1">Marca</h4>
                 <p className="font-medium text-text">{product.brand}</p>
@@ -146,7 +147,7 @@ const ProductDetail = () => {
               </div>
             </div>
 
-            <div className="flex flex-wrap gap-4">
+            <div className="flex md:flex-row flex-col gap-4">
               <Button
                 className="flex-1 !py-3"
                 onClick={() => {

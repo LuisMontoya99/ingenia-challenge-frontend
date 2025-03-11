@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import { NavLink } from "react-router-dom";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
+import Button from "./Button";
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -60,16 +61,17 @@ const Navbar = () => {
           </div>
 
           <div className="flex items-center md:hidden">
-            <button
+            <Button
               onClick={toggleMenu}
-              className="text-gray-500 hover:text-gray-700 focus:outline-none"
+              className="!p-0 !bg-transparent !shadow-none hover:!scale-100 !text-gray-500 hover:!text-gray-700"
+              ariaLabel={isMenuOpen ? "Cerrar menú" : "Abrir menú"}
             >
               {isMenuOpen ? (
                 <XMarkIcon className="h-6 w-6" />
               ) : (
                 <Bars3Icon className="h-6 w-6" />
               )}
-            </button>
+            </Button>
           </div>
         </div>
       </div>
