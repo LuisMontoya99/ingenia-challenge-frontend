@@ -4,19 +4,27 @@ import ProductCard from "../../components/ProductCard";
 import { Product } from "../../types/Product";
 import { ArrowLeftIcon, ArrowRightIcon } from "@heroicons/react/24/outline";
 import Button from "../../components/Button";
+import Loader from "../../components/Loader";
 
 const Products = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [products, setProducts] = useState<Product[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(false);
   const itemsPerPage = 6;
 
   useEffect(() => {
     const loadProducts = async () => {
       try {
+        setLoading(true);
         const data = await fetchProducts();
         setProducts(data);
+        setError(false);
       } catch (error) {
         console.error("Error loading products:", error);
+        setError(true);
+      } finally {
+        setLoading(false);
       }
     };
     loadProducts();
@@ -28,6 +36,18 @@ const Products = () => {
       behavior: "smooth",
     });
   }, [currentPage]);
+
+  if (loading) return <Loader />;
+
+  if (error)
+    return (
+      <div className="min-h-screen bg-accentBg p-6 pt-24 text-center">
+        <h2 className="text-xl text-error mb-4">
+          Error cargando los productos
+        </h2>
+        <Button onClick={() => window.location.reload()}>Reintentar</Button>
+      </div>
+    );
 
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
