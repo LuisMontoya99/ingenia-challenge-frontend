@@ -5,6 +5,8 @@ import { Product } from "../../types/Product";
 import Button from "../../components/Button";
 import NotFound from "../NotFound/NotFound";
 import Loader from "../../components/Loader";
+import { useDispatch } from "react-redux";
+import { addToCart } from "../../store/cartSlice";
 
 const ProductDetail = () => {
   const { id } = useParams();
@@ -12,6 +14,7 @@ const ProductDetail = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
   const [mainImage, setMainImage] = useState(product?.thumbnail || "");
+  const dispatch = useDispatch();
 
   useEffect(() => {
     const loadProduct = async () => {
@@ -150,9 +153,7 @@ const ProductDetail = () => {
             <div className="flex md:flex-row flex-col gap-4">
               <Button
                 className="flex-1 !py-3"
-                onClick={() => {
-                  /* Lógica para agregar al carrito */
-                }}
+                onClick={() => dispatch(addToCart(product))}
               >
                 Añadir al carrito
               </Button>

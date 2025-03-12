@@ -2,14 +2,18 @@ import { useState, useEffect, useRef } from "react";
 import { NavLink } from "react-router-dom";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import Button from "./Button";
+import { useSelector } from "react-redux";
+import { RootState } from "../store";
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
+  const { items } = useSelector((state: RootState) => state.cart);
 
   const links = [
     { to: "/home", text: "Inicio" },
     { to: "/products", text: "Productos" },
+    { to: "/cart", text: "Carrito" },
   ];
 
   useEffect(() => {
@@ -47,17 +51,35 @@ const Navbar = () => {
           </div>
 
           <div className="hidden md:flex items-center space-x-8">
-            {links.map((link) => (
-              <NavLink
-                key={link.to}
-                to={link.to}
-                className={({ isActive }) =>
-                  isActive ? activeClass : inactiveClass
-                }
-              >
-                {link.text}
-              </NavLink>
-            ))}
+            {links.map((link) =>
+              link.to === "/cart" ? (
+                <div key={link.to} className="relative">
+                  <NavLink
+                    to={link.to}
+                    className={({ isActive }) =>
+                      `relative ${isActive ? activeClass : inactiveClass}`
+                    }
+                  >
+                    {link.text}
+                  </NavLink>
+                  {items.length > 0 && (
+                    <span className="absolute -top-2 -right-4 bg-primary text-white rounded-full w-5 h-5 flex items-center justify-center text-xs">
+                      {items.reduce((acc, item) => acc + item.quantity, 0)}
+                    </span>
+                  )}
+                </div>
+              ) : (
+                <NavLink
+                  key={link.to}
+                  to={link.to}
+                  className={({ isActive }) =>
+                    `relative ${isActive ? activeClass : inactiveClass}`
+                  }
+                >
+                  {link.text}
+                </NavLink>
+              )
+            )}
           </div>
 
           <div className="flex items-center md:hidden">
@@ -79,22 +101,45 @@ const Navbar = () => {
       {isMenuOpen && (
         <div ref={menuRef} className="md:hidden bg-white shadow-lg">
           <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
-            {links.map((link) => (
-              <NavLink
-                key={link.to}
-                to={link.to}
-                onClick={toggleMenu}
-                className={({ isActive }) =>
-                  `block px-3 py-2 rounded-md text-base font-medium ${
-                    isActive
-                      ? "text-primary"
-                      : "text-gray-700 hover:text-secondary"
-                  }`
-                }
-              >
-                {link.text}
-              </NavLink>
-            ))}
+            {links.map((link) =>
+              link.to === "/cart" ? (
+                <div key={link.to} className="relative w-max">
+                  <NavLink
+                    to={link.to}
+                    onClick={toggleMenu}
+                    className={({ isActive }) =>
+                      `block pl-3 pr-2 pb-2 pt-0 rounded-md text-base font-medium ${
+                        isActive
+                          ? "text-primary"
+                          : "text-gray-700 hover:text-secondary"
+                      }`
+                    }
+                  >
+                    {link.text}
+                  </NavLink>
+                  {items.length > 0 && (
+                    <span className="absolute -top-2 -right-4 bg-primary text-white rounded-full w-5 h-5 flex items-center justify-center text-xs">
+                      {items.reduce((acc, item) => acc + item.quantity, 0)}
+                    </span>
+                  )}
+                </div>
+              ) : (
+                <NavLink
+                  key={link.to}
+                  to={link.to}
+                  onClick={toggleMenu}
+                  className={({ isActive }) =>
+                    `block px-3 py-2 rounded-md text-base font-medium ${
+                      isActive
+                        ? "text-primary"
+                        : "text-gray-700 hover:text-secondary"
+                    }`
+                  }
+                >
+                  {link.text}
+                </NavLink>
+              )
+            )}
           </div>
         </div>
       )}
